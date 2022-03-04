@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Misc.Services.EmailService;
 using Portfolio.Models;
 
 namespace Portfolio.Controllers;
@@ -7,10 +8,12 @@ namespace Portfolio.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IEmailService _emailService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IEmailService emailService)
     {
         _logger = logger;
+        _emailService = emailService;
     }
 
     public IActionResult Index()
@@ -19,6 +22,21 @@ public class HomeController : Controller
     }
 
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult FeedbackView(string name, string email, string mobileNumber, string message)
+    {
+        var newMessage = new Message(new string[] {"alexandr.onischenko.2003gmail.com"}, email,
+            mobileNumber + name + message);
+        _emailService.SendEmail(newMessage);
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult FeedbackView()
     {
         return View();
     }

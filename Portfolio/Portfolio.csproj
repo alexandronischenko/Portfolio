@@ -8,6 +8,24 @@
 
     <ItemGroup>
       <Folder Include="Layouts" />
+      <Folder Include="Views\Shared\PartialViews" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Misc\Misc.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\css\feedback.css" />
+      <None Include="wwwroot\css\style.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Home\PartialViews\FeedbackView.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MailKit" Version="3.1.1" />
     </ItemGroup>
 
 </Project>

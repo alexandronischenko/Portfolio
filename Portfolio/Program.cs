@@ -1,9 +1,15 @@
+using Misc.Services.EmailService;
 using Portfolio.MiddleWare;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var emailConfig = builder.Configuration
+    .GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 var app = builder.Build();
 
