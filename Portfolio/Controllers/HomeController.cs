@@ -32,12 +32,14 @@ public class HomeController : Controller
         var newMessage = new Message(new string[] {"alexandr.onischenko.2003gmail.com"}, email,
             mobileNumber + name + message);
         _emailService.SendEmail(newMessage);
+        Console.WriteLine("post");
         return View();
     }
 
     [HttpGet]
     public IActionResult FeedbackView()
     {
+        Console.WriteLine("get");
         return View();
     }
 

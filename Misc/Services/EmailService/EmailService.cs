@@ -1,8 +1,5 @@
-using System.Net;
-using System.Net.Mail;
 using MimeKit;
 using MailKit.Net.Smtp;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace Misc.Services.EmailService;
 
@@ -20,16 +17,17 @@ public class EmailService : IEmailService
         var emailMessage = CreateEmailMessage(message);
         Send(emailMessage);
     }
-    
+
     private MimeMessage CreateEmailMessage(Message message)
     {
         var emailMessage = new MimeMessage();
         emailMessage.From.Add(new MailboxAddress(_emailConfig.From, "alexandr.onischenko.2003@gmail.com"));
         emailMessage.To.AddRange(message.To);
         emailMessage.Subject = message.Subject;
-        emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
+        emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) {Text = message.Content};
         return emailMessage;
     }
+
     private void Send(MimeMessage mailMessage)
     {
         using (var client = new SmtpClient())
@@ -54,4 +52,3 @@ public class EmailService : IEmailService
         }
     }
 }
-
